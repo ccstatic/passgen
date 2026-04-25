@@ -23,3 +23,22 @@ fn main() {
     println!("Password output: {}", password); // Prints it to the terminal
     loop {} // Temporary! Keeps program from closing so you can see the password printed on your screen
 }
+
+/*
+    draft for report
+
+    COVER
+    intro
+    background on pass security
+    threat model
+    program overview
+    requirements / design
+    algorithms
+    randomness
+    implementation
+    testing
+    uses
+    limitations
+    conclusion
+    REFERENCES
+*/
