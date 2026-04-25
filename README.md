@@ -2,6 +2,9 @@
 
 Hello groupmates or professor!
 
+This code so far is very minimal and simply outputs one password. A full project would be having options and adding real security methods.
+Let me know what ya think!
+
 If you would like to see how the prototype was coded go here:
 https://github.com/ccstatic/passgen/blob/main/main/src/main.rs
 
