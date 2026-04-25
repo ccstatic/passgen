@@ -2,7 +2,8 @@
 
 Hello groupmates or professor!
 
-You typically have to compile it yourself through an IDE like Visual Studio code however I have probably sent the .exe file over email to make it easier.
-The only code that's important here is the src/main.rs file! You can find that here: https://github.com/ccstatic/passgen/blob/main/main/src/main.rs
+If you would like to see how the prototype was coded go here: https://github.com/ccstatic/passgen/blob/main/main/src/main.rs
+If you want to run it for yourself go here: https://github.com/ccstatic/passgen/releases/tag/Prototype
 
-The code is documented so if you read it top to bottom you should have a rough idea of what it does and how it does it. The langauge used is Rust.
+The code is documented so if you read it top to bottom you should have a rough idea of what it does and how it does it.
+The langauge used is Rust as it's beginner friendly.
