@@ -21,13 +21,13 @@ fn main() {
         .collect(); // Builds the string
 
     println!("Password output: {}", password); // Prints it to the terminal
-    //clear_screen();
+    //clear();
     loop {} // Temporary! Keeps program from closing so you can see the password printed on your screen
 }
 
 // This will be used to clear the screan, works on windows/mac/linux
 #[allow(unused)] // Tells compiler that the function isnt being used
-fn clear_screen() {
+fn clear() {
     use std::process::Command;
     if cfg!(target_os = "windows") {
         Command::new("cmd").args(["/C", "cls"]).status().unwrap(); //If on windows, clear screen specific way
