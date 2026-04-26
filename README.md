@@ -18,6 +18,7 @@ The code is documented so if you read it top to bottom you should have a rough i
 The langauge used is Rust as it's beginner friendly.
 
 IDEAS:
+
 CSPRNG (rand::rngs::OsRng) -> unpredictable, seedless, backtracking resistant, amazing entropy
 BYTES TO GIVEN CHARSET -> no modulo bias
 DEFAULT CONFIG -> strong defaults for instant and easy use for nontechnical people
@@ -30,6 +31,7 @@ OTHER -> disable core dumps, dont allow swap writing, mark memory as dont dump e
 EXTRA -> profiles, entropy estimate display
 
 REPORT DRAFT SECTIONS:
+
 COVER
 intro
 background on pass security
