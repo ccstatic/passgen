@@ -29,20 +29,3 @@ SIDE CHANNEL -> avoid branching on sensitive data
 ANALYTICS -> no network calls at all, no telemetry, no analytics
 OTHER -> disable core dumps, dont allow swap writing, mark memory as dont dump ever
 EXTRA -> profiles, entropy estimate display
-
-REPORT DRAFT SECTIONS:
-
-COVER
-intro
-background on pass security
-threat model
-program overview
-reqs / design
-algorithms
-randomness
-implementation
-tests
-uses
-limitations
-conclusion
-REFERENCES
