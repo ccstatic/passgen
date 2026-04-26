@@ -23,35 +23,3 @@ fn main() {
     println!("Password output: {}", password); // Prints it to the terminal
     loop {} // Temporary! Keeps program from closing so you can see the password printed on your screen
 }
-
-/*  IDEA -> WHY
-    CSPRNG (rand::rngs::OsRng) -> unpredictable, seedless, backtracking resistant, amazing entropy
-    BYTES TO GIVEN CHARSET -> no modulo bias
-    DEFAULT CONFIG -> strong defaults for instant and easy use for nontechnical people
-    CONFIG -> length, charset presets, copy to clipboard, passphrase
-    MEMORY -> scramble memory after use, clear clipboard after 30s, no string cloning
-    OUTPUT -> confirm print before printing, no logging, autoclear after 30s
-    SIDE CHANNEL -> avoid branching on sensitive data
-    ANALYTICS -> no network calls at all, no telemetry, no analytics
-    OTHER -> disable core dumps, dont allow swap writing, mark memory as dont dump ever
-    EXTRA -> profiles, entropy estimate display
-*/
-
-/*
-    draft for report
-
-    COVER
-    intro
-    background on pass security
-    threat model
-    program overview
-    requirements / design
-    algorithms
-    randomness
-    implementation
-    testing
-    uses
-    limitations
-    conclusion
-    REFERENCES
-*/
