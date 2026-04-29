@@ -3,10 +3,10 @@ use std::io; // allows us to ask for options!
 // The main fn runs first when you call the program.
 // For example, this runs when you double click the .exe file or do cargo run
 fn main() {
-    let charset = b"abcdefghijklmnopqrstuvwxyz\
-                    ABCDEFGHIJKLMNOPQRSTUVWXYZ\
-                    0123456789\
-                    !@#$%^&*()-_=+[]{};:,.<>?/";
+    let letters = b"abcdefghijklmnopqrstuvwxyz\
+                    ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    let numbers = b"0123456789";
+    let symbols = b"!@#$%^&*()-_=+[]{};:,.<>?/";
 
     println!("Enter password length:");
 
@@ -16,6 +16,32 @@ fn main() {
         .read_line(&mut input)
         .expect("Failed to read input");
     let length: usize = input.trim().parse().expect("Please enter a valid number");
+
+    // Records/asks user if they want nums
+    println!("Do you want numbers? y/n");
+
+    let mut numbers_input = String::new();
+    io::stdin()
+        .read_line(&mut numbers_input)
+        .expect("Failed to read input");
+
+    // Records/asks user if they want symbols
+    println!("Do you want symbols? y/n");
+
+    let mut symbols_input = String::new();
+    io::stdin()
+        .read_line(&mut symbols_input)
+        .expect("Failed to read input");
+
+    //Builds charset based on their options!
+    let mut charset = Vec::new();
+    charset.extend_from_slice(letters);
+    if numbers_input.trim().to_lowercase() == "y" {
+        charset.extend_from_slice(numbers);
+    }
+    if symbols_input.trim().to_lowercase() == "y" {
+        charset.extend_from_slice(symbols);
+    }
 
     // Creates an RNG thread based on your OS timestamp
     // Means 'new random' every time you run the program.
