@@ -1,19 +1,28 @@
+use std::io; // allows us to ask for options!
+
 // The main fn runs first when you call the program.
 // For example, this runs when you double click the .exe file or do cargo run
 fn main() {
-    // This is the possible characters the program can produce
-    // In the future you would want uppercase, lowercase, numbers, and specials.
-    let charset = b"abcdefhijklmnopqrstuvwxyz";
+    let charset = b"abcdefghijklmnopqrstuvwxyz\
+                    ABCDEFGHIJKLMNOPQRSTUVWXYZ\
+                    0123456789\
+                    !@#$%^&*()-_=+[]{};:,.<>?/";
+
+    println!("Enter password length:");
+
+    //gets input of first line! gets the number the user enters
+    let mut input = String::new();
+    io::stdin()
+        .read_line(&mut input)
+        .expect("Failed to read input");
+    let length: usize = input.trim().parse().expect("Please enter a valid number");
 
     // Creates an RNG thread based on your OS timestamp
     // Means 'new random' every time you run the program.
     use rand::Rng;
     let mut rng = rand::thread_rng();
 
-    // 12 is the pass length, in the future you'd wanna ask the user
-    // how long it should be.
-    let length = 12;
-    let password: String = (0..length)
+    let password: String = (0..length.clamp(2, 32))
         .map(|_| {
             let idx = rng.gen_range(0..charset.len()); // Gets a random character from the charset
             charset[idx] as char
