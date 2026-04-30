@@ -1,12 +1,15 @@
-use std::io; // allows us to ask for options!
-
 // The main fn runs first when you call the program.
 // For example, this runs when you double click the .exe file or do cargo run
 fn main() {
+    use std::io; // allows us to ask for options!
+
+    const _LOWERCASE: &[u8; 26] = b"abcdefghijklmnopqrstuvwxyz";
+    const _UPPERCASE: &[u8; 26] = b"ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    const NUMBERS: &[u8; 10] = b"0123456789";
+    const SYMBOLS: &[u8; 26] = b"!@#$%^&*()-_=+[]{};:,.<>?/";
+
     let letters = b"abcdefghijklmnopqrstuvwxyz\
                     ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    let numbers = b"0123456789";
-    let symbols = b"!@#$%^&*()-_=+[]{};:,.<>?/";
 
     println!("Enter password length:");
 
@@ -37,10 +40,10 @@ fn main() {
     let mut charset = Vec::new();
     charset.extend_from_slice(letters);
     if numbers_input.trim().to_lowercase() == "y" {
-        charset.extend_from_slice(numbers);
+        charset.extend_from_slice(NUMBERS);
     }
     if symbols_input.trim().to_lowercase() == "y" {
-        charset.extend_from_slice(symbols);
+        charset.extend_from_slice(SYMBOLS);
     }
 
     // Creates an RNG thread based on your OS timestamp
