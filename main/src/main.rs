@@ -2,12 +2,12 @@ fn main() {
     use std::io;
 
     // Constant character sets
-    const LOWERCASE: &[u8; 26] = b"abcdefghijklmnopqrstuvwxyz";
-    const UPPERCASE: &[u8; 26] = b"ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    const NUMBERS: &[u8; 10] = b"0123456789";
-    const SYMBOLS: &[u8; 26] = b"!@#$%^&*()-_=+[]{};:,.<>?/";
+    const LOWERCASE: &[u8] = b"abcdefghijklmnopqrstuvwxyz";
+    const UPPERCASE: &[u8] = b"ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    const NUMBERS: &[u8] = b"0123456789";
+    const SYMBOLS: &[u8] = b"!@#$%^&*()-_=+[]{};:,.<>?/";
 
-    // By default we use everything!
+    // By default, to be secure, we use everything
     let mut use_uppercase = true;
     let mut use_lowercase = true;
     let mut use_numbers = true;
@@ -45,19 +45,17 @@ fn main() {
         use_symbols = false;
     }
 
-    // Allows characters based on their options!
+    // Builds set of characters based on their options
     let mut charset = Vec::new();
-    if use_lowercase {
-        charset.extend_from_slice(LOWERCASE);
-    }
-    if use_uppercase {
-        charset.extend_from_slice(UPPERCASE);
-    }
-    if use_numbers {
-        charset.extend_from_slice(NUMBERS);
-    }
-    if use_symbols {
-        charset.extend_from_slice(SYMBOLS);
+    for (enabled, characters) in [
+        (use_lowercase, LOWERCASE),
+        (use_uppercase, UPPERCASE),
+        (use_numbers, NUMBERS),
+        (use_symbols, SYMBOLS),
+    ] {
+        if enabled {
+            charset.extend_from_slice(characters);
+        }
     }
 
     // Creates an RNG thread based on your OS timestamp
