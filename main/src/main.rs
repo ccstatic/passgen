@@ -1,15 +1,12 @@
-// The main fn runs first when you call the program.
-// For example, this runs when you double click the .exe file or do cargo run
 fn main() {
-    use std::io; // allows us to ask for options!
+    use std::io;
 
-    const _LOWERCASE: &[u8; 26] = b"abcdefghijklmnopqrstuvwxyz";
-    const _UPPERCASE: &[u8; 26] = b"ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    const LOWERCASE: &[u8; 26] = b"abcdefghijklmnopqrstuvwxyz";
+    const UPPERCASE: &[u8; 26] = b"ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     const NUMBERS: &[u8; 10] = b"0123456789";
     const SYMBOLS: &[u8; 26] = b"!@#$%^&*()-_=+[]{};:,.<>?/";
 
-    let letters = b"abcdefghijklmnopqrstuvwxyz\
-                    ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    let mut charset = Vec::new();
 
     println!("Enter password length:");
 
@@ -37,8 +34,8 @@ fn main() {
         .expect("Failed to read input");
 
     //Builds charset based on their options!
-    let mut charset = Vec::new();
-    charset.extend_from_slice(letters);
+    charset.extend_from_slice(LOWERCASE);
+    charset.extend_from_slice(UPPERCASE);
     if numbers_input.trim().to_lowercase() == "y" {
         charset.extend_from_slice(NUMBERS);
     }
