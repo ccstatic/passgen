@@ -7,7 +7,10 @@ fn main() {
     const NUMBERS: &[u8] = b"0123456789";
     const SYMBOLS: &[u8] = b"!@#$%^&*()-_=+[]{};:,.<>?/";
 
-    // By default, to be secure, we use everything
+    // Secure default options
+    let mut length: usize = 16;
+    let mut amount: usize = 1;
+
     let mut use_uppercase = true;
     let mut use_lowercase = true;
     let mut use_numbers = true;
