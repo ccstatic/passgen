@@ -1,12 +1,17 @@
 fn main() {
     use std::io;
 
+    // Constant character sets
     const LOWERCASE: &[u8; 26] = b"abcdefghijklmnopqrstuvwxyz";
     const UPPERCASE: &[u8; 26] = b"ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     const NUMBERS: &[u8; 10] = b"0123456789";
     const SYMBOLS: &[u8; 26] = b"!@#$%^&*()-_=+[]{};:,.<>?/";
 
-    let mut charset = Vec::new();
+    // By default we use everything!
+    let mut use_uppercase = true;
+    let mut use_lowercase = true;
+    let mut use_numbers = true;
+    let mut use_symbols = true;
 
     println!("Enter password length:");
 
@@ -33,13 +38,25 @@ fn main() {
         .read_line(&mut symbols_input)
         .expect("Failed to read input");
 
-    //Builds charset based on their options!
-    charset.extend_from_slice(LOWERCASE);
-    charset.extend_from_slice(UPPERCASE);
-    if numbers_input.trim().to_lowercase() == "y" {
+    if numbers_input.trim().to_lowercase() != "y" {
+        use_numbers = false;
+    }
+    if symbols_input.trim().to_lowercase() != "y" {
+        use_symbols = false;
+    }
+
+    // Allows characters based on their options!
+    let mut charset = Vec::new();
+    if use_lowercase {
+        charset.extend_from_slice(LOWERCASE);
+    }
+    if use_uppercase {
+        charset.extend_from_slice(UPPERCASE);
+    }
+    if use_numbers {
         charset.extend_from_slice(NUMBERS);
     }
-    if symbols_input.trim().to_lowercase() == "y" {
+    if use_symbols {
         charset.extend_from_slice(SYMBOLS);
     }
 
