@@ -21,3 +21,9 @@ The langauge used is Rust as it's beginner friendly.
 
 # Features
 List of features here soon...
+
+# Use
+Tutorial here soon...
+
+# Screenshots
+Pictures here soon...
