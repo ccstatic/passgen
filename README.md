@@ -1,4 +1,4 @@
-# passgen
+# Passgen
 
 Hello groupmates or professor!
 
