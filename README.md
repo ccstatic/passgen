@@ -1,5 +1,7 @@
 # Passgen
+Small description here soon...
 
+# Read here!
 Hello groupmates or professor!
 
 This code so far is very minimal and simply outputs one password. A full project would be having options and adding real security methods.
@@ -16,3 +18,6 @@ https://github.com/ccstatic/passgen/releases/tag/Prototype
 
 The code is documented so if you read it top to bottom you should have a rough idea of what it does and how it does it.
 The langauge used is Rust as it's beginner friendly.
+
+# Features
+List of features here soon...
