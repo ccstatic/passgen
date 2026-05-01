@@ -1,5 +1,5 @@
 # Passgen
-A secure and easy to use password generator application. Generate passwords and passphrases with many customizable options right from your computer.
+A secure and easy-to-use password generator application. Generate passwords and passphrases with many customizable options right from your computer.
 
 # Read here!
 Hello groupmates or professor!
