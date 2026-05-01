@@ -1,5 +1,5 @@
 # Passgen
-Small description here soon...
+A secure and easy to use password generator application.
 
 # Read here!
 Hello groupmates or professor!
