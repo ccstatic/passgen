@@ -74,7 +74,7 @@ fn main() {
             .collect();
         println!("{password}");
         // Beautifies the output if you wanted multiple passwords
-        if amount > 0 {
+        if amount > 1 {
             println!();
         }
     }
