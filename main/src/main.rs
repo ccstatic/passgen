@@ -139,3 +139,6 @@ fn main() {
 
     println!("Clipboard and memory cleared for security");
 }
+
+#[cfg(test)]
+mod tests;
