@@ -137,7 +137,11 @@ fn main() {
         Command::new("clear").status().unwrap();
     }
 
-    println!("Clipboard and memory cleared for security");
+    if args.clipboard {
+        println!("Clipboard cleared and password memory wiped");
+    } else {
+        println!("Password memory wiped");
+    }
 }
 
 #[cfg(test)]
