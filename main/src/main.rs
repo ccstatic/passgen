@@ -18,6 +18,10 @@ use zeroize::{Zeroize, Zeroizing};
 
 #[derive(Parser)]
 struct Args {
+    // By default, we do not show the password in the terminal
+    #[arg(long = "show", action = ArgAction::SetFalse)]
+    show: bool,
+
     // By default, a passsword is 16 characters long
     #[arg(short, long, default_value_t = 16)]
     length: usize,
@@ -83,11 +87,15 @@ fn main() {
                 .map(|_| *charset.choose(&mut rng).unwrap() as char)
                 .collect::<String>(),
         );
-        println!("{}", password.as_str());
-        last_password = password;
-        if amount > 1 {
-            println!();
+
+        if args.show {
+            println!("{}", password.as_str());
+            if amount > 1 {
+                println!();
+            }
         }
+
+        last_password = password;
     }
 
     let mut clipboard = Clipboard::new().expect("Failed to access clipboard");
