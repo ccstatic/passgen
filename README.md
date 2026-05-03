@@ -24,6 +24,7 @@ The langauge used is Rust as it's beginner friendly.
 * Allows password options like length, amount, and character sets
 * Copies the last generated password to the clipboard by default and clears it safely after 30 seconds
 * Prevents unnecessary terminal output by limiting maximum password length and amount
+* Uses memory zeroization to reduce leftover memory
 
 # Use
 Tutorial here soon...
