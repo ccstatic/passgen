@@ -66,10 +66,31 @@ fn main() {
     use rand::rngs::OsRng;
     let mut rng = OsRng;
 
-    for _ in 0..amount {}
+    use rand::seq::SliceRandom;
+    for _ in 0..amount {
+        // Creates the string and prints it
+        let password: String = (0..length)
+            .map(|_| *charset.choose(&mut rng).unwrap() as char)
+            .collect();
+        println!("{password}");
+        // Beautifies the output if you wanted multiple passwords
+        if amount > 0 {
+            println!();
+        }
+    }
 
-    // Keeps terminal alive so you can see the password output
-    loop {}
+    // Stalls terminal so you can see your output
+    use std::thread::sleep;
+    use std::time::Duration;
+    sleep(Duration::from_secs(30));
+
+    // Clears the terminal in-case you forgot to close the program
+    use std::process::Command;
+    if cfg!(target_os = "windows") {
+        Command::new("cmd").args(["/C", "cls"]).status().unwrap(); //If on windows, clear screen specific way
+    } else {
+        Command::new("clear").status().unwrap(); //Other better systems allow this automatically
+    }
 
     // use std::io;
 
@@ -143,14 +164,4 @@ fn main() {
     // println!("Password output: {}", password); // Prints it to the terminal
     // //clear();
     // loop {} // Temporary! Keeps program from closing so you can see the password printed on your screen
-}
-
-// This will be used to clear the screan, works on windows/mac/linux
-fn clear() {
-    use std::process::Command;
-    if cfg!(target_os = "windows") {
-        Command::new("cmd").args(["/C", "cls"]).status().unwrap(); //If on windows, clear screen specific way
-    } else {
-        Command::new("clear").status().unwrap(); //Other better systems allow this automatically
-    }
 }
