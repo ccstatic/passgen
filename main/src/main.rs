@@ -5,6 +5,9 @@ const UPPERCASE: &[u8] = b"ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 const NUMBERS: &[u8] = b"0123456789";
 const SYMBOLS: &[u8] = b"!@#$%^&*()-_=+[]{};:,.<>?/";
 
+const MAX_LENGTH: usize = 2048;
+const MAX_AMOUNT: usize = 32;
+
 use clap::{ArgAction, Parser};
 #[derive(Parser)]
 struct Args {
@@ -55,8 +58,8 @@ fn main() {
     assert!(!charset.is_empty(), "One character set has to be enabled!");
 
     // We don't want terminal-breaking amount of characters being pushed to the screen
-    let length = args.length.clamp(2, 2048);
-    let amount = args.amount.clamp(1, 32);
+    let length = args.length.clamp(2, MAX_LENGTH);
+    let amount = args.amount.clamp(1, MAX_AMOUNT);
 
     // use std::io;
 
