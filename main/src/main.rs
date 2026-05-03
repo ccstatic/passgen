@@ -65,6 +65,7 @@ fn main() {
     // It uses system time + CPU cycles + number of inputs, meaning without a compromised system it's not possible to replicate naturally.
     use rand::rngs::OsRng;
     let mut rng = OsRng;
+    let mut last_password = "";
 
     use rand::seq::SliceRandom;
     for _ in 0..amount {
@@ -73,16 +74,24 @@ fn main() {
             .map(|_| *charset.choose(&mut rng).unwrap() as char)
             .collect();
         println!("{password}");
+        let last_password = password;
         // Beautifies the output if you wanted multiple passwords
         if amount > 1 {
             println!();
         }
     }
 
+    use arboard::Clipboard;
+    let mut clipboard = Clipboard::new().expect("Failed to access clipboard");
+
+    clipboard
+        .set_text(last_password.clone())
+        .expect("Failed to copy password");
+
     // Stalls terminal so you can see your output
     use std::thread::sleep;
     use std::time::Duration;
-    sleep(Duration::from_secs(30));
+    sleep(Duration::from_secs(20));
 
     // Clears the terminal in-case you forgot to close the program
     use std::process::Command;
