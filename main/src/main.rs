@@ -61,8 +61,15 @@ fn main() {
     let length = args.length.clamp(2, MAX_LENGTH);
     let amount = args.amount.clamp(1, MAX_AMOUNT);
 
+    // An RNG thread based off of unique seeds.
+    // It uses system time + CPU cycles + number of inputs, meaning without a compromised system it's not possible to replicate naturally.
     use rand::rngs::OsRng;
     let mut rng = OsRng;
+
+    for _ in 0..amount {}
+
+    // Keeps terminal alive so you can see the password output
+    loop {}
 
     // use std::io;
 
