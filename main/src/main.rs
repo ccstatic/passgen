@@ -3,6 +3,10 @@ const UPPERCASE: &[u8] = b"ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 const NUMBERS: &[u8] = b"0123456789";
 const SYMBOLS: &[u8] = b"!@#$%^&*()-_=+[]{};:,.<>?/";
 
+use clap::Parser;
+#[derive(Parser)]
+struct Args {}
+
 fn main() {
     use std::io;
 
