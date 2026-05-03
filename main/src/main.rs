@@ -103,6 +103,8 @@ fn main() {
         .set_text(last_password.as_str())
         .expect("Failed to copy password");
 
+    println!("Password securely generated and last generated was copied to the clipboard");
+
     // Stalls terminal so you can see your output
     sleep(Duration::from_secs(CLIPBOARD_CLEAR_SECONDS));
 
@@ -125,5 +127,5 @@ fn main() {
         Command::new("clear").status().unwrap();
     }
 
-    println!("Clipboard and memory cleared.");
+    println!("Clipboard and memory cleared for security");
 }
