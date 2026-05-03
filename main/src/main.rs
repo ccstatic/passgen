@@ -51,11 +51,9 @@ struct Args {
     symbols: bool,
 }
 
-fn main() {
-    let args = Args::parse();
+fn build_charset(args: &Args) -> Vec<u8> {
     let mut charset = Vec::new();
 
-    // Adds characters based on arguments
     if args.lowercase {
         charset.extend_from_slice(LOWERCASE);
     }
@@ -69,31 +67,56 @@ fn main() {
         charset.extend_from_slice(SYMBOLS);
     }
 
-    // Error if the user requests no character sets, which would be an impossible password generation
+    charset
+}
+
+fn validate_args(args: &Args, charset: &[u8]) -> Result<(), &'static str> {
     if charset.is_empty() {
-        eprintln!("At least one character set has to be enabled.");
-        std::process::exit(1);
+        return Err("At least one character set has to be enabled");
     }
-
     if !args.show && !args.clipboard {
-        eprintln!("At least have to show password or copy it to clipboard.");
+        return Err("At least have to show password or copy it to clipboard");
+    }
+    Ok(())
+}
+
+fn clamp_length(length: usize) -> usize {
+    length.clamp(2, MAX_LENGTH)
+}
+
+fn clamp_amount(amount: usize) -> usize {
+    amount.clamp(1, MAX_AMOUNT)
+}
+
+fn generate_password<R: rand::Rng + ?Sized>(
+    length: usize,
+    charset: &[u8],
+    rng: &mut R,
+) -> Zeroizing<String> {
+    Zeroizing::new(
+        (0..length)
+            .map(|_| *charset.choose(rng).unwrap() as char)
+            .collect::<String>(),
+    )
+}
+
+fn main() {
+    let args = Args::parse();
+    let charset = build_charset(&args);
+
+    if let Err(message) = validate_args(&args, &charset) {
+        eprintln!("{message}");
         std::process::exit(1);
     }
 
-    // We don't want terminal-breaking amount of characters being pushed to the screen
-    let length = args.length.clamp(2, MAX_LENGTH);
-    let amount = args.amount.clamp(1, MAX_AMOUNT);
-
+    let length = clamp_length(args.length);
+    let amount = clamp_amount(args.amount);
     // Uses the operating systems crypto secure random number generator
     let mut rng = OsRng;
     let mut last_password = Zeroizing::new(String::new());
 
     for _ in 0..amount {
-        let password = Zeroizing::new(
-            (0..length)
-                .map(|_| *charset.choose(&mut rng).unwrap() as char)
-                .collect::<String>(),
-        );
+        let password = generate_password(length, &charset, &mut rng);
 
         if args.show {
             println!("{}", password.as_str());
