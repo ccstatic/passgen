@@ -44,6 +44,10 @@ Some examples:
 `passgen --show --no-symbols --no-numbers` for letters only.
 <img width="579" height="61" alt="image" src="https://github.com/user-attachments/assets/1b3eca87-c149-409e-8ac3-652be0567925" />
 
-Some examples that will rightfully error:
+An that will rightfully error:
 `passgen --no-clipboard` errors because by default we don't show it in the terminal and you didn't allow copying, meaning the program is useless with these settings.
 <img width="743" height="55" alt="image" src="https://github.com/user-attachments/assets/fb611d6d-4bb4-4565-849c-45e741c0e70d" />
+
+Video of the process clearing the output and memory after 30 seconds:
+https://github.com/user-attachments/assets/757a5ca9-be4e-45c8-94c7-5a3ef8fc5df7
+
