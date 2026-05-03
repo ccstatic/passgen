@@ -62,7 +62,10 @@ fn main() {
     }
 
     // Error if the user requests no character sets, which would be an impossible password generation
-    assert!(!charset.is_empty(), "One character set has to be enabled!");
+    if charset.is_empty() {
+        eprintln!("At least one character set has to be enabled.");
+        std::process::exit(1);
+    }
 
     // We don't want terminal-breaking amount of characters being pushed to the screen
     let length = args.length.clamp(2, MAX_LENGTH);
