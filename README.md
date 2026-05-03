@@ -1,24 +1,6 @@
 # Passgen
 A secure and easy-to-use password generator application. Generate passwords and passphrases with many customizable options right from your computer.
 
-# Read here!
-Hello groupmates or professor!
-
-This code so far is very minimal and simply outputs one password. A full project would be having options and adding real security methods.
-Let me know what ya think!
-
-The output will look something like this:
-<img width="506" height="225" alt="f846b5fb09ef3666edd7403e6386b199" src="https://github.com/user-attachments/assets/5f7330a9-4832-4c9e-bafe-e4f686dc2fc6" />
-
-If you would like to see how the prototype was coded go here:
-https://github.com/ccstatic/passgen/blob/main/main/src/main.rs
-
-If you want to run it for yourself go here:
-https://github.com/ccstatic/passgen/releases/tag/Prototype
-
-The code is documented so if you read it top to bottom you should have a rough idea of what it does and how it does it.
-The langauge used is Rust as it's beginner friendly.
-
 # Features
 * Creates secure random passwords purely from the command line
 * Allows password options like length, amount, and character sets
@@ -27,9 +9,11 @@ The langauge used is Rust as it's beginner friendly.
 * Uses memory zeroization to reduce leftover memory
 
 # Use
+You can download the passgen.exe file on the releases page [here](https://github.com/ccstatic/passgen/releases).
+
 <img width="972" height="505" alt="image" src="https://github.com/user-attachments/assets/a0fc0a33-68dc-45ec-8532-711157d8a036" />
 
-When you run the main.exe program, you'll be met with an output like this by default. If you paste into a text editor or a text box you'll have a, by default, a strongly generated password locally and securely generated.
+When you run the program, you'll be met with an output like this by default. If you paste into a text editor or a text box you'll have a, by default, a strongly generated password locally and securely generated.
 
 With this passgen.exe however, you can go to the path of the .exe inside your terminal and run it with some configurations.
 Some examples:
