@@ -61,6 +61,9 @@ fn main() {
     let length = args.length.clamp(2, MAX_LENGTH);
     let amount = args.amount.clamp(1, MAX_AMOUNT);
 
+    use rand::rngs::OsRng;
+    let mut rng = OsRng;
+
     // use std::io;
 
     // // Constant character sets
