@@ -37,82 +37,98 @@ fn main() {
     let args = Args::parse();
     let mut charset = Vec::new();
 
-    use std::io;
-
-    // Constant character sets
-
-    // Secure default options
-    let mut length: usize = 16;
-    let mut amount: usize = 1;
-
-    let mut use_uppercase = true;
-    let mut use_lowercase = true;
-    let mut use_numbers = true;
-    let mut use_symbols = true;
-
-    println!("Enter password length:");
-
-    //gets input of first line! gets the number the user enters
-    let mut input = String::new();
-    io::stdin()
-        .read_line(&mut input)
-        .expect("Failed to read input");
-    let length: usize = input.trim().parse().expect("Please enter a valid number");
-
-    // Records/asks user if they want nums
-    println!("Do you want numbers? y/n");
-
-    let mut numbers_input = String::new();
-    io::stdin()
-        .read_line(&mut numbers_input)
-        .expect("Failed to read input");
-
-    // Records/asks user if they want symbols
-    println!("Do you want symbols? y/n");
-
-    let mut symbols_input = String::new();
-    io::stdin()
-        .read_line(&mut symbols_input)
-        .expect("Failed to read input");
-
-    if numbers_input.trim().to_lowercase() != "y" {
-        use_numbers = false;
+    // Adds characters based on arguments
+    if args.lowercase {
+        charset.extend_from_slice(LOWERCASE);
     }
-    if symbols_input.trim().to_lowercase() != "y" {
-        use_symbols = false;
+    if args.uppercase {
+        charset.extend_from_slice(UPPERCASE);
+    }
+    if args.numbers {
+        charset.extend_from_slice(NUMBERS);
+    }
+    if args.symbols {
+        charset.extend_from_slice(SYMBOLS);
     }
 
-    // Builds set of characters based on their options
-    for (enabled, characters) in [
-        (use_lowercase, LOWERCASE),
-        (use_uppercase, UPPERCASE),
-        (use_numbers, NUMBERS),
-        (use_symbols, SYMBOLS),
-    ] {
-        if enabled {
-            charset.extend_from_slice(characters);
-        }
-    }
+    // Error if the user requests no character sets, which would be an impossible password generation
+    assert!(!charset.is_empty(), "One character set has to be enabled!");
 
-    // Creates an RNG thread based on your OS timestamp
-    // Means 'new random' every time you run the program.
-    use rand::Rng;
-    let mut rng = rand::thread_rng();
+    // use std::io;
 
-    let password: String = (0..length.clamp(2, 32))
-        .map(|_| {
-            let idx = rng.gen_range(0..charset.len()); // Gets a random character from the charset
-            charset[idx] as char
-        })
-        .collect(); // Builds the string
+    // // Constant character sets
 
-    println!("Password output: {}", password); // Prints it to the terminal
-    //clear();
-    loop {} // Temporary! Keeps program from closing so you can see the password printed on your screen
+    // // Secure default options
+    // let mut length: usize = 16;
+    // let mut amount: usize = 1;
+
+    // let mut use_uppercase = true;
+    // let mut use_lowercase = true;
+    // let mut use_numbers = true;
+    // let mut use_symbols = true;
+
+    // println!("Enter password length:");
+
+    // //gets input of first line! gets the number the user enters
+    // let mut input = String::new();
+    // io::stdin()
+    //     .read_line(&mut input)
+    //     .expect("Failed to read input");
+    // let length: usize = input.trim().parse().expect("Please enter a valid number");
+
+    // // Records/asks user if they want nums
+    // println!("Do you want numbers? y/n");
+
+    // let mut numbers_input = String::new();
+    // io::stdin()
+    //     .read_line(&mut numbers_input)
+    //     .expect("Failed to read input");
+
+    // // Records/asks user if they want symbols
+    // println!("Do you want symbols? y/n");
+
+    // let mut symbols_input = String::new();
+    // io::stdin()
+    //     .read_line(&mut symbols_input)
+    //     .expect("Failed to read input");
+
+    // if numbers_input.trim().to_lowercase() != "y" {
+    //     use_numbers = false;
+    // }
+    // if symbols_input.trim().to_lowercase() != "y" {
+    //     use_symbols = false;
+    // }
+
+    // // Builds set of characters based on their options
+    // for (enabled, characters) in [
+    //     (use_lowercase, LOWERCASE),
+    //     (use_uppercase, UPPERCASE),
+    //     (use_numbers, NUMBERS),
+    //     (use_symbols, SYMBOLS),
+    // ] {
+    //     if enabled {
+    //         charset.extend_from_slice(characters);
+    //     }
+    // }
+
+    // // Creates an RNG thread based on your OS timestamp
+    // // Means 'new random' every time you run the program.
+    // use rand::Rng;
+    // let mut rng = rand::thread_rng();
+
+    // let password: String = (0..length.clamp(2, 32))
+    //     .map(|_| {
+    //         let idx = rng.gen_range(0..charset.len()); // Gets a random character from the charset
+    //         charset[idx] as char
+    //     })
+    //     .collect(); // Builds the string
+
+    // println!("Password output: {}", password); // Prints it to the terminal
+    // //clear();
+    // loop {} // Temporary! Keeps program from closing so you can see the password printed on your screen
 }
 
 // This will be used to clear the screan, works on windows/mac/linux
-#[allow(unused)] // Tells compiler that the function isnt being used
 fn clear() {
     use std::process::Command;
     if cfg!(target_os = "windows") {
