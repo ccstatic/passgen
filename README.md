@@ -1,6 +1,8 @@
 # Passgen
 A secure and easy-to-use password generator application. Generate passwords and passphrases with many customizable options right from your computer.
 
+Worked on by Laura, Yod, and Chad
+
 # Features
 * Creates secure random passwords purely from the command line
 * Allows password options like length, amount, and character sets
