@@ -1,13 +1,41 @@
+#![allow(unused)]
+
 const LOWERCASE: &[u8] = b"abcdefghijklmnopqrstuvwxyz";
 const UPPERCASE: &[u8] = b"ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 const NUMBERS: &[u8] = b"0123456789";
 const SYMBOLS: &[u8] = b"!@#$%^&*()-_=+[]{};:,.<>?/";
 
-use clap::Parser;
+use clap::{ArgAction, Parser};
 #[derive(Parser)]
-struct Args {}
+struct Args {
+    // By default, a passsword is 16 characters long
+    #[arg(short, long, default_value_t = 16)]
+    length: usize,
+
+    // By default, only one password is generated
+    #[arg(short, long, default_value_t = 1)]
+    amount: usize,
+
+    // By default, passwords can have lowercase characters
+    #[arg(long = "no-lowercase", action = ArgAction::SetFalse)]
+    lowercase: bool,
+
+    // By default, passwords can have uppercase characters
+    #[arg(long = "no-uppercase", action = ArgAction::SetFalse)]
+    uppercase: bool,
+
+    // By default, passwords can have numbers
+    #[arg(long = "no-numbers", action = ArgAction::SetFalse)]
+    numbers: bool,
+
+    // By default, passwords can have symbols
+    #[arg(long = "no-symbols", action = ArgAction::SetFalse)]
+    symbols: bool,
+}
 
 fn main() {
+    let args = Args::parse();
+
     use std::io;
 
     // Constant character sets
