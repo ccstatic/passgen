@@ -7,6 +7,7 @@ const SYMBOLS: &[u8] = b"!@#$%^&*()-_=+[]{};:,.<>?/";
 
 const MAX_LENGTH: usize = 2048;
 const MAX_AMOUNT: usize = 32;
+const CLIPBOARD_CLEAR_SECONDS: u64 = 30;
 
 use clap::{ArgAction, Parser};
 #[derive(Parser)]
