@@ -75,6 +75,11 @@ fn main() {
         std::process::exit(1);
     }
 
+    if !args.show && !args.clipboard {
+        eprintln!("At least have to show password or copy it to clipboard.");
+        std::process::exit(1);
+    }
+
     // We don't want terminal-breaking amount of characters being pushed to the screen
     let length = args.length.clamp(2, MAX_LENGTH);
     let amount = args.amount.clamp(1, MAX_AMOUNT);
