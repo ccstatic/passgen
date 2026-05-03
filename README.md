@@ -20,7 +20,10 @@ The code is documented so if you read it top to bottom you should have a rough i
 The langauge used is Rust as it's beginner friendly.
 
 # Features
-List of features here soon...
+* Creates secure random passwords purely from the command line
+* Allows password options like length, amount, and character sets
+* Copies the last generated password to the clipboard by default and clears it safely after 30 seconds
+* Prevents unnecessary terminal output by limiting maximum password length and amount
 
 # Use
 Tutorial here soon...
