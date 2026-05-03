@@ -19,8 +19,12 @@ use zeroize::{Zeroize, Zeroizing};
 #[derive(Parser)]
 struct Args {
     // By default, we do not show the password in the terminal
-    #[arg(long = "show", action = ArgAction::SetFalse)]
+    #[arg(long)]
     show: bool,
+
+    // By default, we copy the last password to the clipboard
+    #[arg(long = "no-clipboard", action = ArgAction::SetFalse)]
+    clipboard: bool,
 
     // By default, a passsword is 16 characters long
     #[arg(short, long, default_value_t = 16)]
@@ -77,8 +81,6 @@ fn main() {
 
     // Uses the operating systems crypto secure random number generator
     let mut rng = OsRng;
-
-    // Zeroize is used to hide memory traces
     let mut last_password = Zeroizing::new(String::new());
 
     for _ in 0..amount {
@@ -98,23 +100,26 @@ fn main() {
         last_password = password;
     }
 
-    let mut clipboard = Clipboard::new().expect("Failed to access clipboard");
-    clipboard
-        .set_text(last_password.as_str())
-        .expect("Failed to copy password");
+    if args.clipboard {
+        let mut clipboard = Clipboard::new().expect("Failed to access clipboard");
+        clipboard
+            .set_text(last_password.as_str())
+            .expect("Failed to copy password");
 
-    println!("Password securely generated and last generated was copied to the clipboard");
-
-    // Stalls terminal so you can see your output
-    sleep(Duration::from_secs(CLIPBOARD_CLEAR_SECONDS));
-
-    // Clears the clipboard by setting it to nothing if you didn't clear it yourself
-    if let Ok(mut current_clipboard) = clipboard.get_text() {
-        if current_clipboard == last_password.as_str() {
-            clipboard.set_text("").expect("Failed to clear clipboard");
+        println!("Password(s) securely generated and last generated was copied to the clipboard");
+        sleep(Duration::from_secs(CLIPBOARD_CLEAR_SECONDS));
+        if let Ok(mut current_clipboard) = clipboard.get_text() {
+            if current_clipboard == last_password.as_str() {
+                clipboard.set_text("").expect("Failed to clear clipboard");
+            }
+            // Clipboard string is also zeroized
+            current_clipboard.zeroize();
         }
-        // Clipboard string is also zeroized
-        current_clipboard.zeroize();
+    } else {
+        println!("Password(s) securely generated");
+
+        // Stalls terminal so you can see your output
+        sleep(Duration::from_secs(CLIPBOARD_CLEAR_SECONDS));
     }
 
     // Wipes the password buffer
