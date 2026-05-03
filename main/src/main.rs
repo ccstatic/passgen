@@ -99,10 +99,12 @@ fn main() {
     sleep(Duration::from_secs(CLIPBOARD_CLEAR_SECONDS));
 
     // Clears the clipboard by setting it to nothing if you didn't clear it yourself
-    if let Ok(current_clipboard) = clipboard.get_text() {
+    if let Ok(mut current_clipboard) = clipboard.get_text() {
         if current_clipboard == last_password.as_str() {
             clipboard.set_text("").expect("Failed to clear clipboard");
         }
+        // Clipboard string is also zeroized
+        current_clipboard.zeroize();
     }
 
     // If there's any memory of the password leftover it'll be removed here
