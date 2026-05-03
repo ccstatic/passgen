@@ -4,7 +4,7 @@ const NUMBERS: &[u8] = b"0123456789";
 const SYMBOLS: &[u8] = b"!@#$%^&*()-_=+[]{};:,.<>?/";
 
 const MAX_LENGTH: usize = 2048;
-const MAX_AMOUNT: usize = 32;
+const MAX_AMOUNT: usize = 64;
 const CLIPBOARD_CLEAR_SECONDS: u64 = 30;
 
 use arboard::Clipboard;
@@ -26,8 +26,8 @@ struct Args {
     #[arg(long = "no-clipboard", action = ArgAction::SetFalse)]
     clipboard: bool,
 
-    // By default, a passsword is 16 characters long
-    #[arg(short, long, default_value_t = 16)]
+    // By default, a passsword is 20 characters long
+    #[arg(short, long, default_value_t = 20)]
     length: usize,
 
     // By default, only one password is generated
@@ -111,6 +111,7 @@ fn main() {
 
     let length = clamp_length(args.length);
     let amount = clamp_amount(args.amount);
+
     // Uses the operating systems crypto secure random number generator
     let mut rng = OsRng;
     let mut last_password = Zeroizing::new(String::new());
