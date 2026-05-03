@@ -117,7 +117,7 @@ fn main() {
         current_clipboard.zeroize();
     }
 
-    // If there's any memory of the password leftover it'll be removed here
+    // Wipes the password buffer
     last_password.zeroize();
 
     // Clears output in-case you left the program open
