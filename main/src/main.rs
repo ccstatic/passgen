@@ -35,6 +35,7 @@ struct Args {
 
 fn main() {
     let args = Args::parse();
+    let mut charset = Vec::new();
 
     use std::io;
 
@@ -82,7 +83,6 @@ fn main() {
     }
 
     // Builds set of characters based on their options
-    let mut charset = Vec::new();
     for (enabled, characters) in [
         (use_lowercase, LOWERCASE),
         (use_uppercase, UPPERCASE),
