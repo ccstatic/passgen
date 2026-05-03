@@ -71,8 +71,7 @@ fn main() {
     let length = args.length.clamp(2, MAX_LENGTH);
     let amount = args.amount.clamp(1, MAX_AMOUNT);
 
-    // An RNG thread based off of unique seeds.
-    // It uses system time + CPU cycles + number of inputs, meaning without a compromised system it's not possible to replicate naturally.
+    // Uses the operating systems crypto secure random number generator
     let mut rng = OsRng;
 
     // Zeroize is used to hide memory traces
