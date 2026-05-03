@@ -49,5 +49,5 @@ An that will rightfully error:
 <img width="743" height="55" alt="image" src="https://github.com/user-attachments/assets/fb611d6d-4bb4-4565-849c-45e741c0e70d" />
 
 Video of the process clearing the output and memory after 30 seconds:
-https://github.com/user-attachments/assets/757a5ca9-be4e-45c8-94c7-5a3ef8fc5df7
+<img width="680" height="316" alt="00f7c94231d70b7148452c42356eb581" src="https://github.com/user-attachments/assets/7eeb3f1b-3948-4a29-8dd1-d9a037aac6f1" />
 
