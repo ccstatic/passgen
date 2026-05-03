@@ -7,3 +7,4 @@ edition = "2024"
 rand = "0.8"
 clap = { version = "4", features = ["derive"] }
 arboard = "3.6.1"
+zeroize = "1"

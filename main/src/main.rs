@@ -1,5 +1,3 @@
-#![allow(unused)]
-
 const LOWERCASE: &[u8] = b"abcdefghijklmnopqrstuvwxyz";
 const UPPERCASE: &[u8] = b"ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 const NUMBERS: &[u8] = b"0123456789";
@@ -16,6 +14,7 @@ use rand::seq::SliceRandom;
 use std::process::Command;
 use std::thread::sleep;
 use std::time::Duration;
+use zeroize::{Zeroize, Zeroizing};
 
 #[derive(Parser)]
 struct Args {
@@ -72,14 +71,17 @@ fn main() {
     // An RNG thread based off of unique seeds.
     // It uses system time + CPU cycles + number of inputs, meaning without a compromised system it's not possible to replicate naturally.
     let mut rng = OsRng;
-    let mut last_password = String::new();
+
+    // Zeroize is used to hide memory traces
+    let mut last_password = Zeroizing::new(String::new());
 
     for _ in 0..amount {
-        let password: String = (0..length)
-            .map(|_| *charset.choose(&mut rng).unwrap() as char)
-            .collect();
-        println!("{password}");
-
+        let password = Zeroizing::new(
+            (0..length)
+                .map(|_| *charset.choose(&mut rng).unwrap() as char)
+                .collect::<String>(),
+        );
+        println!("{}", password.as_str());
         last_password = password;
         if amount > 1 {
             println!();
@@ -88,7 +90,7 @@ fn main() {
 
     let mut clipboard = Clipboard::new().expect("Failed to access clipboard");
     clipboard
-        .set_text(last_password.clone())
+        .set_text(last_password.as_str())
         .expect("Failed to copy password");
 
     // Stalls terminal so you can see your output
@@ -96,10 +98,13 @@ fn main() {
 
     // Clears the clipboard by setting it to nothing if you didn't clear it yourself
     if let Ok(current_clipboard) = clipboard.get_text() {
-        if current_clipboard == last_password {
+        if current_clipboard == last_password.as_str() {
             clipboard.set_text("").expect("Failed to clear clipboard");
         }
     }
+
+    // If there's any memory of the password leftover it'll be removed here
+    last_password.zeroize();
 
     // Clears output in-case you left the program open
     if cfg!(target_os = "windows") {
@@ -107,4 +112,6 @@ fn main() {
     } else {
         Command::new("clear").status().unwrap();
     }
+
+    println!("Clipboard and memory cleared.");
 }
