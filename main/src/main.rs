@@ -9,7 +9,14 @@ const MAX_LENGTH: usize = 2048;
 const MAX_AMOUNT: usize = 32;
 const CLIPBOARD_CLEAR_SECONDS: u64 = 30;
 
+use arboard::Clipboard;
 use clap::{ArgAction, Parser};
+use rand::rngs::OsRng;
+use rand::seq::SliceRandom;
+use std::process::Command;
+use std::thread::sleep;
+use std::time::Duration;
+
 #[derive(Parser)]
 struct Args {
     // By default, a passsword is 16 characters long
@@ -64,43 +71,40 @@ fn main() {
 
     // An RNG thread based off of unique seeds.
     // It uses system time + CPU cycles + number of inputs, meaning without a compromised system it's not possible to replicate naturally.
-    use rand::rngs::OsRng;
     let mut rng = OsRng;
-    let mut last_password = "";
+    let mut last_password = String::new();
 
-    use rand::seq::SliceRandom;
     for _ in 0..amount {
-        // Creates the string and prints it
         let password: String = (0..length)
             .map(|_| *charset.choose(&mut rng).unwrap() as char)
             .collect();
         println!("{password}");
-        let last_password = password;
-        // Beautifies the output if you wanted multiple passwords
+
+        last_password = password;
         if amount > 1 {
             println!();
         }
     }
 
-    use arboard::Clipboard;
     let mut clipboard = Clipboard::new().expect("Failed to access clipboard");
-
     clipboard
         .set_text(last_password.clone())
         .expect("Failed to copy password");
 
     // Stalls terminal so you can see your output
-    use std::thread::sleep;
-    use std::time::Duration;
-    sleep(Duration::from_secs(20));
+    sleep(Duration::from_secs(CLIPBOARD_CLEAR_SECONDS));
 
-    // Clears the terminal in-case you forgot to close the program
-    use std::process::Command;
+    // Clears the clipboard by setting it to nothing if you didn't clear it yourself
+    if let Ok(current_clipboard) = clipboard.get_text() {
+        if current_clipboard == last_password {
+            clipboard.set_text("").expect("Failed to clear clipboard");
+        }
+    }
+
+    // Clears output in-case you left the program open
     if cfg!(target_os = "windows") {
-        // If on windows, clear screen specific way
         Command::new("cmd").args(["/C", "cls"]).status().unwrap();
     } else {
-        // Other better systems allow this automatically
         Command::new("clear").status().unwrap();
     }
 }
