@@ -18,17 +18,17 @@ You can download the passgen.exe file on the releases page [here](https://github
 
 <img width="972" height="505" alt="image" src="https://github.com/user-attachments/assets/a0fc0a33-68dc-45ec-8532-711157d8a036" />
 
-When you run the program, you'll be met with an output like this by default. If you paste into a text editor or a text box you'll have a, by default, a strongly generated password locally and securely generated.
+When you run the program, you'll be met with an output like this by default. If you paste into a text editor or a text box you'll have a strongly generated password locally and securely generated.
 
-With this passgen.exe however, you can go to the path of the .exe inside your terminal and run it with some configurations.
-Some examples:
-`passgen --show` to see it in the terminal.
+With the program, you can also go to the path of the file inside your terminal and run it with some configurations.
+Here are some examples:
+`passgen --show` to see it in the terminal. To be secure, passwords are not printed unless specified.
 <img width="557" height="36" alt="image" src="https://github.com/user-attachments/assets/4e88fa38-7688-4c2d-938e-e1029b207106" />
 
 `passgen --length 32 --show` or `passgen -l 32 --show` to change the length of the password.
 <img width="587" height="59" alt="image" src="https://github.com/user-attachments/assets/ddb84a6a-9129-48b5-b289-177e7855befb" />
 
-`passgen --amount 5 --show` to show five passwords
+`passgen --amount 5 --show` to show five passwords at once instead of one.
 <img width="599" height="215" alt="image" src="https://github.com/user-attachments/assets/60ce6a3d-2c21-483f-9872-008f631a6305" />
 
 `passgen --show --no-symbols` to prevent symbols from being generated.
@@ -49,8 +49,8 @@ Some examples:
 `passgen --show --no-symbols --no-numbers` for letters only.
 <img width="579" height="61" alt="image" src="https://github.com/user-attachments/assets/1b3eca87-c149-409e-8ac3-652be0567925" />
 
-An that will rightfully error:
-`passgen --no-clipboard` errors because by default we don't show it in the terminal and you didn't allow copying, meaning the program is useless with these settings.
+Here's some examples that will rightfully error:
+`passgen --no-clipboard` errors because by default we don't show it in the terminal and you didn't allow copying, meaning the program is useless with these settings. The program will tell you that you have to run it with some way of outputting.
 <img width="743" height="55" alt="image" src="https://github.com/user-attachments/assets/fb611d6d-4bb4-4565-849c-45e741c0e70d" />
 
 Video of the process clearing the output and memory after 30 seconds:
