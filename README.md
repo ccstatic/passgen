@@ -2,9 +2,9 @@
 A secure and easy-to-use password generator application. Generate passwords and passphrases with many customizable options right from your computer.
 
 # Group Members
-Yod V.
-Laura N.
-Chad E.
+* Yod V.
+* Laura N.
+* Chad E.
 
 # Features
 * Creates secure random passwords purely from the command line
